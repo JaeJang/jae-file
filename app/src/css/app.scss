@@ -1,0 +1,345 @@
+@import "https://fonts.googleapis.com/css?family=Open+Sans:300,400,800";
+@import "reset";
+@import "variable";
+@import "font";
+
+body{
+    font-family:'Open Sans', sans-serif;
+    background-color: $background-color;
+    color: $body-text-color;
+    font-size:13px;
+}
+
+*{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.app-layout {
+    max-width: 1000px;
+    margin: 0 auto;
+
+    @media(min-width: $screen-md){
+        padding: 60px 50px 50px 50px;
+    }
+}
+
+.app-container {
+    position: relative;
+    overflow: hidden;
+    padding: 20px 0 0 0;
+    .app-header {
+        padding-bottom: 30px;
+        color: $white;
+        text-align: center;
+        cursor: pointer;
+        h1 {
+            margin:0;
+            padding: 0;
+            font-size: 60px;
+            font-weight: 800;
+        }
+        .app-desc{
+            margin-top:20px;
+            .app-desc-sub{
+                margin-top:5px;
+                color: rgba(255,255,255,.9);
+                padding: 0;
+                font-size: 35px;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.app-main{
+    max-width: 450px;
+    margin:0 auto;
+    overflow: hidden;
+    position: relative;
+    background-color: $white;
+    border-radius: 5px;
+
+    @media (min-width: $screen-sm){
+        width:450px;
+    }
+
+    .app-main-header {
+        background: rgba(243,247,255,1);
+        .app-main-header-inner{
+            padding: 20px;
+        }
+    }
+    .app-main-content {
+        .app-main-content-inner {
+            padding:20px;
+        }
+    }
+    &.app-main-uploading, &.app-main-uploading-sent{
+        .app-main-content-inner {
+            padding:40px;
+
+            .app-uploading-files-total{
+                text-align: left;
+            }
+        }
+    }
+}
+
+.app-file-select-zone {
+    width:100%;
+    display:block;
+    text-align: center;
+    label{
+        display:block;
+        input{
+            position: fixed;
+            top:-9999px;
+        }
+    }
+    .app-upload-description{
+        font-size: 13px;
+        display: block;
+    }
+    .app-upload-icon{
+        display: inline-block;
+        margin-bottom: 10px;
+        width: 70px;
+        height: 35px;
+        border: 1px dashed $body-text-color;
+    }
+
+    &.error {
+        .app-upload-icon {
+            border-color: $danger-color;
+        }
+    }
+}
+
+.app-form-item{
+    margin: 0 0 15px 0;
+    label {
+        display: block;
+        font-wieght: 400;
+        margin: 0 0 8px 0;
+    }
+    input[type='text'], textarea{
+        width: 100%;
+        border: 1px solid rgba(224,224,224,1);
+        outline: 0 none;
+        padding: 10px;
+        &:focus, :active{
+            outline: 0 none;
+        }
+    }
+    textarea{
+        min-height: 50px;
+    }
+
+    &.error {
+        input {
+            color: $danger-color;
+        }
+    }
+}
+
+.app-form-actions {
+    .app-button {
+        width: 100%;
+        text-align: center;
+        font-weight: 800;
+        display: block;
+        border-radius: 5px;
+        border: 1px solid $background-color;
+        padding: 10px 15px;
+        color: $background-color;
+        background: $white;
+        &.primary{
+            background: $background-color;
+            color: $white;
+        } 
+    }
+}
+
+.app-files-selected {
+    max-height: 150px;
+    position: relative;
+    overflow-y: auto;
+
+    background: $white;
+    margin: -20px -20px 20px -20px;
+    padding: 20px;
+
+    .app-files-selected-item{
+        display: flex;
+        border-bottom: 1px solid rgba(0,0,0,.09);
+        padding: 10px 0;
+        .filename {
+            flex-grow: 1;
+        }
+    }
+    .file-remove {
+        border: 0 none;
+        padding :3px;
+        font-size: 14px;
+        font-weight: 300;
+        background: none;
+    }
+}
+
+.error {
+    color: $danger-color;
+}
+
+.app-home-uploading-icon{
+    display:block;
+    text-align: center;
+    i{
+        font-size: 50px;
+        display: inline-block;
+        border: 1px solid $body-text-color;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+    }
+    h2{
+        margin-top: 20px;
+        font-size: 20px;
+    }
+}
+.app-home-upload-sent-icon{
+    display:block;
+    text-align: center;
+    i{
+        font-size: 50px;
+        display: inline-block;
+        border: 1px solid $body-text-color;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+    }
+}
+.app-progress{
+    margin-top: 20px;
+    position: relative;
+    display: block;
+    height: 20px;
+    background: rgba(241,248,254,1);
+    line-height:20px;
+    width: 100%;
+    border: 1px solid rgba(178,216,248,1);
+    border-radius: 7px;
+    overflow: hidden;
+    .app-progress-bar{
+        background: $background-color;
+        display: block;
+        position: absolute;
+        left: 0;
+        top:0;
+        line-height: 20px;
+        height: 20px;
+    }
+}
+.app-uploading-stats{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    .app-uploading-stats-left{
+        flex-grow:1;
+        text-align: left;
+    }
+    .app-uploading-stats-right{
+
+    }
+}
+.app-uploading-cancel-button{
+    margin-top:50px;
+}
+.app-text-center {
+    text-align: center;
+}
+.app-upload-sent-message{
+    margin-top: 30px;
+    h2{
+        font-size: 25px;
+        font-weight: 400;
+        padding:0;
+        margin: 20px 0;
+    }
+    p{
+        line-height: 1.5em;
+    }
+}
+.app-upload-sent-action{
+    margin: 20px 0;
+    button{
+        margin: 10px 0;
+    }
+}
+
+.app-download-message{
+    margin-top: 30px;
+    h2{
+        font-size: 25px;
+        font-weight: 400;
+        padding:0;
+        margin: 20px 0;
+    }
+    p{
+        line-height: 1.5em;
+    }
+    ul{
+        list-style:none;
+        margin:0;
+        padding:0;
+        li{
+            margin:0 10px 0 0;
+            padding-left: 10px;
+            display:inline-block;
+            position: relative;
+            &:before{
+                content:'';
+                position: absolute;
+                top: 5px;
+                left: 0;
+                display: block;
+                width: 2px;
+                height: 2px;
+                border: 1px solid $body-text-color;
+                border-radius: 50%;
+            }
+            &:first-child {
+                padding:0;
+                &:before{
+                    display: none;
+                }
+            }
+        }  
+    }
+}
+.app-download-file-list{
+    margin: 30px 0;
+    .app-download-file-list-item{
+        border-bottom: 1px solid rgba(227,234,248,1);
+        padding: 10px 5px;
+        display: flex;
+        .filename{
+            flex-grow: 1;
+        }
+        a{
+            color: $background-color;
+            text-decoration: none;
+        }
+    }
+}
+.app-download-actions{
+    .app-button{
+        margin:10px 0;
+    }
+    a{
+        text-decoration: none;
+    }
+}
