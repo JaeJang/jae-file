@@ -39,7 +39,7 @@ export default class Email {
             to: to, // list of receivers
             subject: subject, // Subject line
             text: message, // plain text body
-            html: `<p>${from} has sent files to you. Click <a href="${link}">here</a> to download.</p><p>Or copy this URL <br>${link} </p><p>${message}</p>` // html body
+            html: `<p>${from} has sent files to you. Click <a href="${link}">here</a> to download.</p><p>Or copy this URL <br>${link} </p><p><br>Message-----------------------------------</p><p>${message}</p>` // html body
         }, (error, info) => {
 
             return cb(error, info);
