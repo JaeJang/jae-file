@@ -91,5 +91,6 @@ typings/
 .vscode
 
 api/src/config.js
+app/src/config.js
 
 # End of https://www.gitignore.io/api/node
