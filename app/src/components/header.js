@@ -11,7 +11,6 @@ class Header extends Component {
                     <h1><i className={'icon-paper-plane'}/>SEND IT</h1>
                     <div className={'app-desc'}>
                         <div className={'app-desc-sub'}>It's simple</div>
-                        <div className={'app-desc-sub'}>It's safe</div>
                         <div className={'app-desc-sub'}>It's free</div>
 
                     </div>
