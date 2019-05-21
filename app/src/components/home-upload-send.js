@@ -20,7 +20,6 @@ class HomeUploadSent extends Component {
         const to = _.get(data,'to');
         const postId = _.get(data,'_id');
 
-        console.log(data);
         return (
             <div className={'app-main app-main-uploading-sent'}>
                 <div className={'app-main-content'}>

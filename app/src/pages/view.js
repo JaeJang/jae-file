@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
-import Header from '../components/header';
 import {getDownLoadInfo} from  '../helpers/download';
 import {apiUrl} from '../config';
 import {betterNumber} from '../helpers/';

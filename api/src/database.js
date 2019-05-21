@@ -1,9 +1,8 @@
 import {MongoClient} from 'mongodb';
-
-const url = 'mongodb://localhost:27017/file';
+import {mongodbUrl} from './config';
 
 export const connect = (callback) => {
-    MongoClient.connect(url, {useNewUrlParser: true}, (err, db) => {
+    MongoClient.connect(mongodbUrl, {useNewUrlParser: true}, (err, db) => {
         
         return callback(err, db);
     });

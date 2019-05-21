@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Header from '../components/header';
 import HomeForm from '../components/home-form';
 import HomeUploading from '../components/home-uploading';
 import HomeUploadingSent from '../components/home-upload-send';
@@ -65,7 +64,6 @@ class Home extends Component {
                 }
                  onUploadBegin={
                     (data) => {
-                        console.log("onUpload");
                         this.setState({
                             data: data,
                             componentName: 'HomeUploading',

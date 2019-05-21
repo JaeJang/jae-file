@@ -6,9 +6,7 @@ import Header from '../components/header';
 import {Router, Route, Switch} from 'react-router-dom';
 import {history} from '../history';
 class Layout extends Component {
-    constructor(props) {
-        super(props);
-    }
+
 
     render() {
         return (
