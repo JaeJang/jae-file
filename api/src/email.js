@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {url} from './config';
+import {url, cryptrPw} from './config';
 
 export default class Email {
 
@@ -8,16 +8,22 @@ export default class Email {
         this.app = app;
     }
 
+    encryptPostId(postId) {
+
+    }
+
     async sendLink(post ,cb = () => {}) {
 
         const app = this.app;
         const email = app.email;
+        const cryptr = app.get('cryptr');
 
         const from = _.get(post, 'from');
         const to = _.get(post, 'to');
         const message = _.get(post, 'message', '');
         const postId = _.get(post, '_id');
-        const link = `${url}/share/${postId}`;
+        const encryptedId = cryptr.encrypt(postId);
+        const link = `${url}/share/${encryptedId}`;
 
         // send mail with defined transport object
         let info = await email.sendMail({

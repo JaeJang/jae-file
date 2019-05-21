@@ -8,7 +8,7 @@ import cors from 'cors';
 import nodemailer from 'nodemailer'; 
 import AppRouter from './router';
 import {connect} from "./database";
-import {smtp,s3Config,s3Region, s3Bucket} from './config';
+import {smtp,s3Config,s3Region, s3Bucket,cryptrPw} from './config';
 import multerS3 from 'multer-s3';
 
 //Amazon S3 Setup
@@ -16,6 +16,11 @@ import AWS from 'aws-sdk';
 AWS.config.update(s3Config);
 AWS.config.region = s3Region;
 const s3 = new AWS.S3();
+
+
+//Cryptr setup
+import Cryptr from 'cryptr';
+const cryptr = new Cryptr(cryptrPw);
 
 
 // Setup Email
@@ -68,6 +73,7 @@ app.set('root', __dirname);
 app.set('storageDir', storageDir);
 app.set('upload', upload);
 app.set('s3', s3);
+app.set('cryptr', cryptr);
 app.email = email;
 
 //Connect to the database

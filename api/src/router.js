@@ -20,6 +20,7 @@ class AppRouter {
         const db = app.get('db');
         const uploadDir = app.get('storageDir');
         const upload = app.get('upload');
+        const cryptr = app.get('cryptr');
 
         //root routing
         app.get('/', (req,res,next) => {
@@ -100,7 +101,7 @@ class AppRouter {
         // Download routing
         app.get('/api/download/:id', (req,res,next) => {
 
-            const fieldId = req.params.id;
+            const fieldId = cryptr.decrypt(req.params.id);
 
             db.collection('files').find({_id:ObjectId(fieldId)}).toArray((err, result) =>{
                 const fileName = _.get(result, '[0].name');
@@ -143,13 +144,18 @@ class AppRouter {
         });
 
         app.get('/api/posts/:id', (req,res,next) => {
-            const postId = _.get(req,'params.id');
+            const postId = cryptr.decrypt(_.get(req,'params.id', null));
             
             this.getPostById(postId, (err, result) => {
 
                 if(err){
                     return res.status(404).json({error: {message: 'File not found'}});
                 }
+                
+                const files = _.get(result, 'files', []);
+                _.each(files, file => {
+                    file._id = cryptr.encrypt(file._id);
+                });
 
                 return res.json(result);
             })
@@ -157,7 +163,7 @@ class AppRouter {
 
         app.get('/api/posts/:id/download', (req,res,next) => {
 
-            const postId = _.get(req,'params.id', null);
+            const postId = cryptr.decrypt(_.get(req,'params.id', null));
 
             this.getPostById(postId, (err, result) => {
                 

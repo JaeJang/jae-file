@@ -14,6 +14,7 @@ class View extends Component {
         }
 
         this.getTotalDownLoadSize = this.getTotalDownLoadSize.bind(this);
+        this.getExpiryDate = this.getExpiryDate.bind(this);
     }
 
     componentWillMount() {
@@ -23,6 +24,7 @@ class View extends Component {
         getDownLoadInfo(postId).then((res) => {
             this.setState({
                 post: _.get(res, 'data'),
+                postId: postId,
             })
         }).catch( err => {
             console.log("An error fetching download data", err);
@@ -40,12 +42,24 @@ class View extends Component {
         return betterNumber(total);
     }
 
-    render() {
+    getExpiryDate () {
         const {post} = this.state;
-        const postId = _.get(post, '_id', null);
+        const current = new Date();
+        const posted = new Date(_.get(post, 'created'));
+        const res = Math.abs(current - posted) / 1000;
+        const days = 30 - Math.floor(res / 86400);
+
+        return days;
+    }
+
+    render() {
+        const {post,postId} = this.state;
+        //const postId = _.get(post, '_id', null);
         const files = _.get(post, 'files', []);
-        console.log(post);
         const totalSize = this.getTotalDownLoadSize();
+        const days = this.getExpiryDate();
+        const isExpried = days < 0;
+
         return(
             
             
@@ -57,11 +71,17 @@ class View extends Component {
                                 <i className={'icon-download'}/>
                             </div>
                             <div className={'app-download-message app-text-center'}>
-                                <h2>Ready to download</h2>
+                                {
+                                    !isExpried ? <h2>Ready to download</h2> : <h2>It's expired</h2>
+                                }
+                                
                                 <ul>
                                     <li>{files.length} files</li>
                                     <li>{totalSize}</li>
-                                    <li>Expries in 30days</li>
+                                    {
+                                        !isExpried ? <li>Expries in {days} days</li> : null
+                                    }
+                                    
                                 </ul>
                             </div>
                             <div className={'app-download-file-list'}>
@@ -70,7 +90,12 @@ class View extends Component {
                                     return (
                                         <div key={index} className={'app-download-file-list-item'}>
                                             <div className={'filename'}>{file.originalName}</div>
-                                            <div className={'download-action'}><a href={`${apiUrl}/download/${file._id}`}><i className={'icon-download'}></i></a></div>
+                                            {
+                                                !isExpried ? <div className={'download-action'}><a href={`${apiUrl}/download/${file._id}`}><i className={'icon-download'}></i></a></div>
+                                                : <div className={'download-action'}><i className={'icon-download'}></i></div>
+                                                
+                                            }
+                                            
                                         </div>
                                     )
                                 })
@@ -78,11 +103,16 @@ class View extends Component {
                                 
                             </div>
 
-                            <div className={'app-download-actions app-form-actions'}>
-
-                                <a href={`${apiUrl}/posts/${postId}/download`} className={'app-button primary'}>Download All</a>
-                                <button className={'app-button'} type={'button'}>Share</button>
-                            </div>
+                            {
+                                !isExpried ? 
+                                <div className={'app-download-actions app-form-actions'}>
+                                    <a href={`${apiUrl}/posts/${postId}/download`} className={'app-button primary'}>Download All</a>
+                                    <button className={'app-button'} type={'button'}>Share</button>
+                                </div>
+                                :
+                                null
+                            }
+                            
                             
                             
                         </div>

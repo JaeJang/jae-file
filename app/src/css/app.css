@@ -116,6 +116,10 @@ table {
   content: "g";
 }
 
+.icon-ban:before {
+  content: "h";
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   background-color: #4091BE;
