@@ -107,7 +107,7 @@ class View extends Component {
                                 !isExpried ? 
                                 <div className={'app-download-actions app-form-actions'}>
                                     <a href={`${apiUrl}/posts/${postId}/download`} className={'app-button primary'}>Download All</a>
-                                    <button className={'app-button'} type={'button'}>Share</button>
+                                    {/* <button className={'app-button'} type={'button'}>Share</button> */}
                                 </div>
                                 :
                                 null

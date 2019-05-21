@@ -34,7 +34,6 @@ class AppRouter {
         // Upload routing
         app.post('/api/upload', upload.array('files'), (req,res,next) => {
             const files = _.get(req,'files', []);
-            console.log(files);
             let fileModels = [];
 
             _.each(files, (fileObject) => {
@@ -58,6 +57,7 @@ class AppRouter {
                     let post = new Post(app).initWithObject({
                         from: _.get(req, 'body.from'),
                         to: _.get(req, 'body.to'),
+                        title: _.get(req, 'body.title'),
                         message: _.get(req, 'body.message'),
                         files: result.insertedIds,
                     }).toJSON();
@@ -70,7 +70,8 @@ class AppRouter {
                                 }
                             });
                         }
-
+                        const encryptedId = cryptr.encrypt(_.get(post,'_id'));
+                        _.set(post, '_id', encryptedId);
                         // implement email sending to user with download link.
                         const sendEmail = new Email(app);
                         sendEmail.sendLink(post, (error, info) => {

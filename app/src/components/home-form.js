@@ -14,6 +14,7 @@ class HomeForm extends Component {
                 files: [],
                 to: '',
                 from: '',
+                title: '',
                 message: '',
             },
             errors: {
@@ -208,6 +209,10 @@ class HomeForm extends Component {
                             <div className={classNames('app-form-item', {'error': _.get(errors, 'from')})}>
                                 <label htmlFor="from">SEND FROM</label>
                                 <input type="text" onChange={this._onTextChange} value={form.from} id={'from'} name={'from'} placeholder={_.get(errors, 'from') ? _.get(errors, 'from') : 'Email addres'}/>
+                            </div>
+                            <div className={'app-form-item'}>
+                                <label htmlFor="title">title</label>
+                                <input type="text" onChange={this._onTextChange} name="title" id="title" placeholder={'Email title (optional)'}></input>
                             </div>
                             <div className={'app-form-item'}>
                                 <label htmlFor="message">Message</label>

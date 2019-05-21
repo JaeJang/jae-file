@@ -245,6 +245,7 @@ body {
   outline: 0 none;
 }
 .app-form-item textarea {
+  font-family: "Open Sans", sans-serif;
   min-height: 50px;
 }
 .app-form-item.error input {

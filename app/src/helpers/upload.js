@@ -18,6 +18,7 @@ export const upload = (form, cb = () => {}) => {
 
     data.append('to', _.get(form, 'to'));
     data.append('from', _.get(form, 'from'));
+    data.append('title', _.get(form, 'title'));
     data.append('message', _.get(form, 'message'));
 
     const config = {
